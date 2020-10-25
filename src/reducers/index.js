@@ -1,15 +1,20 @@
-const initialState = {
-  todayDate: null,
-};
+const reducer = (state, action) => {
+  console.log(state);
 
-const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'CHANGE_DATE':
+      return {
+        ...state,
+        dateInCalendars: action.payload,
+      };
+    case 'SELECTED_DAY':
+      return {
+        ...state,
+        selectedRange: action.payload,
+      };
     default:
       return state;
   }
 };
-
-let date = new Date(2020, 0, 20);
-console.log(date);
 
 export default reducer;

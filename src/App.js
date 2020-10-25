@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './App.css';
-
 import { Sidebar } from './components';
 import { Content } from './components';
 

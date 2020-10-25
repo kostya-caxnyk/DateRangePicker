@@ -1,5 +1,6 @@
 import React from 'react';
-import Calendar from './Calendar';
+
+import Calendars from './Calendars';
 import Header from './Header';
 import MonthSlider from './MonthSlider';
 
@@ -8,10 +9,7 @@ const Content = () => {
     <div className="content">
       <Header />
       <MonthSlider />
-      <div className="calendars">
-        <Calendar />
-        <Calendar />
-      </div>
+      <Calendars />
     </div>
   );
 };
