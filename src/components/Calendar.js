@@ -1,7 +1,17 @@
 import React from 'react';
 
-const Calendar = ({ days, monthAndYear, onSelectDay }) => {
-  console.log(days);
+const Calendar = ({ days, monthAndYear, onSelectDay, from, to }) => {
+  const isSelected = (dateSelected, dateInArr) => {
+    if (
+      dateSelected.year === dateInArr.year &&
+      dateSelected.month === dateInArr.month &&
+      dateSelected.day === dateInArr.day
+    ) {
+      return 'selected';
+    }
+    return '';
+  };
+  
   return (
     <div className="calendar">
       <div className="selected-month">{monthAndYear}</div>
@@ -15,11 +25,17 @@ const Calendar = ({ days, monthAndYear, onSelectDay }) => {
         <span>Sat</span>
       </div>
       <div className="days">
-        {days.map(({ day, id, month, year }) => (
-          <button key={id} className={!year ? 'passive' : ''} onClick={() => onSelectDay({day, month, year})}>
-            <span>{day}</span>
-          </button>
-        ))}
+        {days.map((date) => {
+          const { id, month, year, day } = date;
+          return (
+            <button
+              key={id}
+              className={!year ? 'passive' : ''}
+              onClick={() => onSelectDay({ day, month, year })}>
+              <span className={isSelected(from, date)}>{day}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

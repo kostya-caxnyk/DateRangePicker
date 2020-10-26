@@ -1,6 +1,4 @@
 const reducer = (state, action) => {
-  console.log(state);
-
   switch (action.type) {
     case 'CHANGE_DATE':
       return {
