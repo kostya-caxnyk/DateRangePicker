@@ -5,11 +5,33 @@ const reducer = (state, action) => {
         ...state,
         dateInCalendars: action.payload,
       };
-    case 'SELECTED_DAY':
+    case 'SELECTED_START_RANGE':
       return {
         ...state,
-        selectedRange: action.payload,
+        selectedRange: {
+          fromDate: action.payload,
+          toDateHovered: {},
+          toDate: {},
+        },
+        isChoseStartRange: true,
       };
+    case 'SELECTED_END_RANGE':
+      return {
+        ...state,
+        selectedRange: {
+          ...state.selectedRange,
+          toDate: action.payload,
+        },
+        isChoseStartRange: false,
+      };
+    case 'HOVERING_RANGE':
+      return {
+        ...state,
+        selectedRange: {
+          ...state.selectedRange,
+          toDateHovered: action.payload,
+        }
+      }
     default:
       return state;
   }

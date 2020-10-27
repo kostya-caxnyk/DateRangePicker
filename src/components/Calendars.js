@@ -2,28 +2,46 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { selectDay } from '../actions';
+import { selectDay, hoverDays } from '../actions';
 
 import Calendar from './CalendarContainer';
 
 const Calendars = (props) => {
-  const { selectedMonth, nextMonth, selectDay, from, to } = props;
+  const {
+    selectedMonth,
+    nextMonth,
+    selectDay,
+    from,
+    to,
+    todayDate,
+    isChoseStartRange,
+    hoverDays,
+    toDateHovered,
+  } = props;
 
   return (
     <div className="calendars">
       <Calendar
         year={selectedMonth.year}
         month={selectedMonth.month}
+        today={todayDate}
         onSelectDay={selectDay}
         from={from}
         to={to}
+        isChoseStartRange={isChoseStartRange}
+        toDateHovered={toDateHovered}
+        onHoverDays={hoverDays}
       />
       <Calendar
         year={nextMonth.year}
         month={nextMonth.month}
+        today={todayDate}
         onSelectDay={selectDay}
         from={from}
         to={to}
+        isChoseStartRange={isChoseStartRange}
+        toDateHovered={toDateHovered}
+        onHoverDays={hoverDays}
       />
     </div>
   );
@@ -32,7 +50,8 @@ const Calendars = (props) => {
 const mapStateToProps = ({
   todayDate,
   dateInCalendars: { selectedMonth, nextMonth },
-  selectedRange: { fromDate, toDate },
+  selectedRange: { fromDate, toDate, toDateHovered },
+  isChoseStartRange,
 }) => {
   return {
     todayDate,
@@ -40,12 +59,15 @@ const mapStateToProps = ({
     nextMonth,
     from: fromDate,
     to: toDate,
+    isChoseStartRange,
+    toDateHovered,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     selectDay,
+    hoverDays,
   };
 };
 

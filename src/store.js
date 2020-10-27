@@ -30,8 +30,14 @@ const initialState = {
   },
   selectedRange: {
     fromDate: {},
+    toDateHovered: {},
     toDate: {},
   },
+  hoveredRange: {
+    from: {},
+    to: {},
+  },
+  isChoseStartRange: false,
 };
 
 const store = createStore(reducer, initialState);

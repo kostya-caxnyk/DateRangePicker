@@ -1,17 +1,15 @@
 import React from 'react';
 
-const Calendar = ({ days, monthAndYear, onSelectDay, from, to }) => {
-  const isSelected = (dateSelected, dateInArr) => {
-    if (
-      dateSelected.year === dateInArr.year &&
-      dateSelected.month === dateInArr.month &&
-      dateSelected.day === dateInArr.day
-    ) {
-      return 'selected';
-    }
-    return '';
-  };
-  
+const Calendar = ({
+  days,
+  monthAndYear,
+  onSelectDay,
+  today,
+  isChoseStartRange,
+  isToday,
+  isInSelectedRange,
+  onHoverDays,
+}) => {
   return (
     <div className="calendar">
       <div className="selected-month">{monthAndYear}</div>
@@ -30,9 +28,12 @@ const Calendar = ({ days, monthAndYear, onSelectDay, from, to }) => {
           return (
             <button
               key={id}
-              className={!year ? 'passive' : ''}
-              onClick={() => onSelectDay({ day, month, year })}>
-              <span className={isSelected(from, date)}>{day}</span>
+              className={`${!year ? 'passive' : ''} ${isToday(today, date)}`}
+              onClick={() => onSelectDay({ day, month, year }, isChoseStartRange)}
+              onMouseEnter={() => {
+                isChoseStartRange && onHoverDays({ day, month, year });
+              }}>
+              <span className={isInSelectedRange(date)}>{day}</span>
             </button>
           );
         })}

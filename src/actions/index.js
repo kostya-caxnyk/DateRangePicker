@@ -22,14 +22,24 @@ const changeDate = (newYear, newMonth) => {
   };
 };
 
-const selectDay = (date) => {
+const selectDay = (date, isChoseStartRange) => {
+  if (!isChoseStartRange) {
+    return {
+      type: 'SELECTED_START_RANGE',
+      payload: date,
+    };
+  }
   return {
-    type: 'SELECTED_DAY',
-    payload: {
-      fromDate: date,
-      toDate: null,
-    },
+    type: 'SELECTED_END_RANGE',
+    payload: date,
   };
 };
 
-export { changeDate, selectDay };
+const hoverDays = (date) => {
+  return {
+    type: 'HOVERING_RANGE',
+    payload: date,
+  }
+}
+
+export { changeDate, selectDay, hoverDays };

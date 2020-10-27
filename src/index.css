@@ -224,6 +224,10 @@ a:focus {
   border: 1px solid rgb(61, 145, 255);
 }
 
+.days .hovered {
+  border: 1px solid rgb(61, 145, 255);
+}
+
 .days .selected {
   background-color: rgb(61, 145, 255);
   color: #fff;

@@ -23,7 +23,7 @@ const MonthAndYearSelections = (props) => {
   ];
   const yearArr = [];
 
-  for (let i = 1920; i < 2040; i++) {
+  for (let i = 2040; i > 1920; i--) {
     yearArr.push(i);
   }
 
