@@ -1,15 +1,8 @@
 import React from 'react';
 
-const Calendar = ({
-  days,
-  monthAndYear,
-  onSelectDay,
-  today,
-  isChoseStartRange,
-  isToday,
-  isInSelectedRange,
-  onHoverDays,
-}) => {
+import classNames from 'classnames';
+
+const Calendar = ({ days, monthAndYear, onSelectDay, isChoseStartRange, onHoverDays, onRemoveHoveredRange }) => {
   return (
     <div className="calendar">
       <div className="selected-month">{monthAndYear}</div>
@@ -22,18 +15,23 @@ const Calendar = ({
         <span>Fri</span>
         <span>Sat</span>
       </div>
-      <div className="days">
+      <div className="days"  onMouseLeave={onRemoveHoveredRange}>
         {days.map((date) => {
-          const { id, month, year, day } = date;
+          const { id, month, year, day, isToday, isHovered, isSelected } = date;
           return (
             <button
               key={id}
-              className={`${!year ? 'passive' : ''} ${isToday(today, date)}`}
+              className={classNames({
+                passive: !year,
+                today: isToday,
+              })}
               onClick={() => onSelectDay({ day, month, year }, isChoseStartRange)}
               onMouseEnter={() => {
                 isChoseStartRange && onHoverDays({ day, month, year });
               }}>
-              <span className={isInSelectedRange(date)}>{day}</span>
+              <span className={classNames({ selected: isSelected, hovered: isHovered })}>
+                {day}
+              </span>
             </button>
           );
         })}

@@ -1,10 +1,26 @@
 import React from 'react';
 
-const Header = () => {
+import classNames from 'classnames';
+
+const Header = ({
+  isChoseStartRange,
+  firstLabel,
+  secondLabel,
+  continueSelection,
+  stopSelection,
+}) => {
   return (
     <div className="header">
-      <button className="btn-selected">Oct 24, 2020</button>
-      <button>Oct 31, 2020</button>
+      <button
+        className={classNames({ 'btn-selected': !isChoseStartRange })}
+        onClick={() => isChoseStartRange && stopSelection()}>
+        {firstLabel}
+      </button>
+      <button
+        className={classNames({ 'btn-selected': isChoseStartRange })}
+        onClick={() => !isChoseStartRange && continueSelection()}>
+        {secondLabel}
+      </button>
     </div>
   );
 };

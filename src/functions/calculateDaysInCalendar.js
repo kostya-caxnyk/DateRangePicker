@@ -1,7 +1,15 @@
-const calculateDaysInCalendar = (year, month) => {
+const calculateDaysInCalendar = (monthDate, selectedRange, hoveredRange) => {
+  const { year, month } = monthDate;
   if (year === undefined || month === undefined) {
     return [];
   }
+
+  const todayDate = new Date();
+  const today = {
+    year: todayDate.getFullYear(),
+    month: todayDate.getMonth(),
+    day: todayDate.getDate(),
+  };
 
   let date = new Date(year, month);
   let key = 100;
@@ -23,11 +31,17 @@ const calculateDaysInCalendar = (year, month) => {
   date.setDate(date.getDate() + allDays.length);
 
   for (let i = 1; i <= amountDaysInMonth; i++) {
-    allDays.push({
+    const dayData = {
       day: i,
       month: date.getMonth(),
       year: date.getFullYear(),
+    };
+    allDays.push({
+      ...dayData,
       id: key++,
+      isToday: isToday(dayData, today),
+      isSelected: isInRange(dayData, selectedRange),
+      isHovered: isInRange(dayData, hoveredRange),
     });
   }
 
@@ -38,6 +52,18 @@ const calculateDaysInCalendar = (year, month) => {
   }
 
   return allDays;
+};
+
+const isInRange = (date, range) => {
+  const idx = range.findIndex(
+    ({ year, month, day }) => year === date.year && month === date.month && day === date.day,
+  );
+
+  return idx >= 0;
+};
+
+const isToday = (date, today) => {
+  return today.year === date.year && today.month === date.month && today.day === date.day;
 };
 
 export default calculateDaysInCalendar;

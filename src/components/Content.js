@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Calendars from './Calendars';
-import Header from './Header';
+import Header from '../containers/HeaderContainer';
 import MonthSlider from './MonthSlider';
 
 const Content = () => {

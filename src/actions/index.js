@@ -1,14 +1,14 @@
 const changeDate = (newYear, newMonth) => {
   const newDate = new Date(newYear, newMonth);
 
-  const selectedMonth = {
+  const leftMonth = {
     year: newDate.getFullYear(),
     month: newDate.getMonth(),
   };
 
   newDate.setMonth(newDate.getMonth() + 1);
 
-  const nextMonth = {
+  const rightMonth = {
     year: newDate.getFullYear(),
     month: newDate.getMonth(),
   };
@@ -16,13 +16,13 @@ const changeDate = (newYear, newMonth) => {
   return {
     type: 'CHANGE_DATE',
     payload: {
-      selectedMonth,
-      nextMonth,
+      leftMonth,
+      rightMonth,
     },
   };
 };
 
-const selectDay = (date, isChoseStartRange) => {
+const onSelectDay = (date, isChoseStartRange) => {
   if (!isChoseStartRange) {
     return {
       type: 'SELECTED_START_RANGE',
@@ -35,11 +35,58 @@ const selectDay = (date, isChoseStartRange) => {
   };
 };
 
-const hoverDays = (date) => {
+const onHoverDays = (date) => {
   return {
     type: 'HOVERING_RANGE',
     payload: date,
-  }
-}
+  };
+};
 
-export { changeDate, selectDay, hoverDays };
+const stopSelection = () => ({
+  type: 'STOP_SELECTION',
+});
+
+const continueSelection = () => ({
+  type: 'CONTINUE_SELECTION',
+});
+
+const removeHoveredRange = () => ({
+  type: 'REMOVE_HOVERED_RANGE',
+});
+
+const hoverAllDays = (from, to) => ({
+  type: 'HOVERING_ALL_DAYS',
+  payload: {
+    from,
+    to,
+  },
+});
+
+const setSelectionRange = ({ from, to }) => {
+  return {
+    type: 'SET_SELECTION_RANGE',
+    payload: {
+      from: {
+        year: from.getFullYear(),
+        month: from.getMonth(),
+        day: from.getDate(),
+      },
+      to: {
+        year: to.getFullYear(),
+        month: to.getMonth(),
+        day: to.getDate(),
+      },
+    },
+  };
+};
+
+export {
+  changeDate,
+  onSelectDay,
+  onHoverDays,
+  stopSelection,
+  continueSelection,
+  removeHoveredRange,
+  hoverAllDays,
+  setSelectionRange,
+};

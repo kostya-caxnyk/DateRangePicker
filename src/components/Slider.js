@@ -22,7 +22,7 @@ const Slider = (props) => {
 
 const mapStateToProps = ({
   dateInCalendars: {
-    selectedMonth: { year, month },
+    leftMonth: { year, month },
   },
 }) => ({
   year,

@@ -2,72 +2,65 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { selectDay, hoverDays } from '../actions';
+import { onSelectDay, onHoverDays, removeHoveredRange } from '../actions';
 
-import Calendar from './CalendarContainer';
+import CalendarContainer from '../containers/CalendarContainer';
 
 const Calendars = (props) => {
   const {
-    selectedMonth,
-    nextMonth,
-    selectDay,
-    from,
-    to,
-    todayDate,
+    leftMonth,
+    rightMonth,
+    onSelectDay,
+    onHoverDays,
     isChoseStartRange,
-    hoverDays,
-    toDateHovered,
+    hoveredRange,
+    selectedRange,
+    onRemoveHoveredRange,
   } = props;
-
   return (
     <div className="calendars">
-      <Calendar
-        year={selectedMonth.year}
-        month={selectedMonth.month}
-        today={todayDate}
-        onSelectDay={selectDay}
-        from={from}
-        to={to}
+      <CalendarContainer
+        month={leftMonth}
+        onSelectDay={onSelectDay}
         isChoseStartRange={isChoseStartRange}
-        toDateHovered={toDateHovered}
-        onHoverDays={hoverDays}
+        onHoverDays={onHoverDays}
+        selectedRange={selectedRange}
+        hoveredRange={hoveredRange}
+        onRemoveHoveredRange={onRemoveHoveredRange}
       />
-      <Calendar
-        year={nextMonth.year}
-        month={nextMonth.month}
-        today={todayDate}
-        onSelectDay={selectDay}
-        from={from}
-        to={to}
+      <CalendarContainer
+        month={rightMonth}
+        onSelectDay={onSelectDay}
         isChoseStartRange={isChoseStartRange}
-        toDateHovered={toDateHovered}
-        onHoverDays={hoverDays}
+        onHoverDays={onHoverDays}
+        selectedRange={selectedRange}
+        hoveredRange={hoveredRange}
+        onRemoveHoveredRange={onRemoveHoveredRange}
       />
     </div>
   );
 };
 
 const mapStateToProps = ({
-  todayDate,
-  dateInCalendars: { selectedMonth, nextMonth },
-  selectedRange: { fromDate, toDate, toDateHovered },
+  dateInCalendars: { leftMonth, rightMonth },
+  selectedRange,
+  hoveredRange,
   isChoseStartRange,
 }) => {
   return {
-    todayDate,
-    selectedMonth,
-    nextMonth,
-    from: fromDate,
-    to: toDate,
+    leftMonth,
+    rightMonth,
+    selectedRange,
+    hoveredRange,
     isChoseStartRange,
-    toDateHovered,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
-    selectDay,
-    hoverDays,
+    onSelectDay,
+    onHoverDays,
+    onRemoveHoveredRange: removeHoveredRange,
   };
 };
 

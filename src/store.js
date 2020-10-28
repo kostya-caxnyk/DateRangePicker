@@ -4,12 +4,6 @@ import reducer from './reducers';
 
 const date = new Date();
 
-const today = {
-  year: date.getFullYear(),
-  month: date.getMonth(),
-  day: date.getDate(),
-};
-
 const dateOne = {
   year: date.getFullYear(),
   month: date.getMonth(),
@@ -23,15 +17,13 @@ const dateTwo = {
 };
 
 const initialState = {
-  todayDate: today,
   dateInCalendars: {
-    selectedMonth: dateOne,
-    nextMonth: dateTwo,
+    leftMonth: dateOne,
+    rightMonth: dateTwo,
   },
   selectedRange: {
-    fromDate: {},
-    toDateHovered: {},
-    toDate: {},
+    from: {},
+    to: {},
   },
   hoveredRange: {
     from: {},

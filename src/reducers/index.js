@@ -9,9 +9,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedRange: {
-          fromDate: action.payload,
-          toDateHovered: {},
-          toDate: {},
+          from: action.payload,
+          to: {},
+        },
+        hoveredRange: {
+          from: action.payload,
+          to: {},
         },
         isChoseStartRange: true,
       };
@@ -20,18 +23,55 @@ const reducer = (state, action) => {
         ...state,
         selectedRange: {
           ...state.selectedRange,
-          toDate: action.payload,
+          to: action.payload,
+        },
+        hoveredRange: {
+          from: {},
+          to: {},
         },
         isChoseStartRange: false,
       };
     case 'HOVERING_RANGE':
       return {
         ...state,
-        selectedRange: {
-          ...state.selectedRange,
-          toDateHovered: action.payload,
-        }
-      }
+        hoveredRange: {
+          ...state.hoveredRange,
+          to: action.payload,
+        },
+      };
+    case 'STOP_SELECTION':
+      return {
+        ...state,
+        isChoseStartRange: false,
+      };
+
+    case 'CONTINUE_SELECTION':
+      return {
+        ...state,
+        hoveredRange: {
+          from: state.selectedRange.from,
+          to: {},
+        },
+        isChoseStartRange: true,
+      };
+    case 'REMOVE_HOVERED_RANGE':
+      return {
+        ...state,
+        hoveredRange: {
+          from: state.hoveredRange.from,
+          to: {},
+        },
+      };
+    case 'HOVERING_ALL_DAYS':
+      return {
+        ...state,
+        hoveredRange: action.payload,
+      };
+    case 'SET_SELECTION_RANGE':
+      return {
+        ...state,
+        selectedRange: action.payload,
+      };
     default:
       return state;
   }

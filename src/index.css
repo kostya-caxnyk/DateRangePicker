@@ -237,6 +237,10 @@ a:focus {
   color: rgb(4, 243, 251);
 }
 
+.days .selected.hovered {
+  color: rgb(247, 251, 4);
+}
+
 .days .today {
   font-weight: bold;
 }
@@ -252,4 +256,8 @@ a:focus {
   height: 2px;
   border-radius: 2px;
   background: #3d91ff;
+}
+
+.days .today .selected{
+  background: rgb(23, 217, 252);
 }
