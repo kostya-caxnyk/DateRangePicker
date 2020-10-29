@@ -2,7 +2,16 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-const Calendar = ({ days, monthAndYear, onSelectDay, isChoseStartRange, onHoverDays, onRemoveHoveredRange }) => {
+const Calendar = ({
+  days,
+  monthAndYear,
+  onSelectDay,
+  isChoseStartRange,
+  onHoverDays,
+  isMouseDown,
+  stopSelection,
+  onMouseDown,
+}) => {
   return (
     <div className="calendar">
       <div className="selected-month">{monthAndYear}</div>
@@ -15,9 +24,19 @@ const Calendar = ({ days, monthAndYear, onSelectDay, isChoseStartRange, onHoverD
         <span>Fri</span>
         <span>Sat</span>
       </div>
-      <div className="days"  onMouseLeave={onRemoveHoveredRange}>
+      <div className="days">
         {days.map((date) => {
-          const { id, month, year, day, isToday, isHovered, isSelected } = date;
+          const {
+            id,
+            month,
+            year,
+            day,
+            isToday,
+            isHovered,
+            isSelected,
+            isLeftEdge,
+            isRightEdge,
+          } = date;
           return (
             <button
               key={id}
@@ -28,8 +47,19 @@ const Calendar = ({ days, monthAndYear, onSelectDay, isChoseStartRange, onHoverD
               onClick={() => onSelectDay({ day, month, year }, isChoseStartRange)}
               onMouseEnter={() => {
                 isChoseStartRange && onHoverDays({ day, month, year });
-              }}>
-              <span className={classNames({ selected: isSelected, hovered: isHovered })}>
+              }}
+              onMouseDown={() =>
+                !isChoseStartRange && onMouseDown({ day, month, year }, isMouseDown)
+              }
+              onMouseMove={() => isMouseDown && onSelectDay({ day, month, year }, isMouseDown)}
+              onMouseUp={() => !isChoseStartRange && stopSelection()}>
+              <span
+                className={classNames({
+                  selected: isSelected,
+                  hovered: isHovered,
+                  leftEdge: isLeftEdge,
+                  rightEdge: isRightEdge,
+                })}>
                 {day}
               </span>
             </button>

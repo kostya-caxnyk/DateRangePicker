@@ -2,7 +2,13 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { onSelectDay, onHoverDays, removeHoveredRange } from '../actions';
+import {
+  onSelectDay,
+  onHoverDays,
+  removeHoveredRange,
+  stopSelection,
+  onMouseDown,
+} from '../actions';
 
 import CalendarContainer from '../containers/CalendarContainer';
 
@@ -16,9 +22,12 @@ const Calendars = (props) => {
     hoveredRange,
     selectedRange,
     onRemoveHoveredRange,
+    isMouseDown,
+    stopSelection,
+    onMouseDown,
   } = props;
   return (
-    <div className="calendars">
+    <div className="calendars" onMouseLeave={onRemoveHoveredRange}>
       <CalendarContainer
         month={leftMonth}
         onSelectDay={onSelectDay}
@@ -27,6 +36,9 @@ const Calendars = (props) => {
         selectedRange={selectedRange}
         hoveredRange={hoveredRange}
         onRemoveHoveredRange={onRemoveHoveredRange}
+        isMouseDown={isMouseDown}
+        stopSelection={stopSelection}
+        onMouseDown={onMouseDown}
       />
       <CalendarContainer
         month={rightMonth}
@@ -36,6 +48,9 @@ const Calendars = (props) => {
         selectedRange={selectedRange}
         hoveredRange={hoveredRange}
         onRemoveHoveredRange={onRemoveHoveredRange}
+        isMouseDown={isMouseDown}
+        stopSelection={stopSelection}
+        onMouseDown={onMouseDown}
       />
     </div>
   );
@@ -46,6 +61,7 @@ const mapStateToProps = ({
   selectedRange,
   hoveredRange,
   isChoseStartRange,
+  isMouseDown,
 }) => {
   return {
     leftMonth,
@@ -53,6 +69,7 @@ const mapStateToProps = ({
     selectedRange,
     hoveredRange,
     isChoseStartRange,
+    isMouseDown,
   };
 };
 
@@ -61,6 +78,8 @@ const mapDispatchToProps = () => {
     onSelectDay,
     onHoverDays,
     onRemoveHoveredRange: removeHoveredRange,
+    stopSelection,
+    onMouseDown,
   };
 };
 

@@ -66,17 +66,22 @@ const setSelectionRange = ({ from, to }) => {
   return {
     type: 'SET_SELECTION_RANGE',
     payload: {
-      from: {
-        year: from.getFullYear(),
-        month: from.getMonth(),
-        day: from.getDate(),
-      },
-      to: {
-        year: to.getFullYear(),
-        month: to.getMonth(),
-        day: to.getDate(),
-      },
+      from,
+      to,
     },
+  };
+};
+
+const onMouseDown = (date, isMouseDown) => {
+  if (!isMouseDown) {
+    return {
+      type: 'START_SELECTING',
+      payload: date,
+    };
+  }
+  return {
+    type: 'SELECTED_END_RANGE',
+    payload: date,
   };
 };
 
@@ -89,4 +94,5 @@ export {
   removeHoveredRange,
   hoverAllDays,
   setSelectionRange,
+  onMouseDown,
 };

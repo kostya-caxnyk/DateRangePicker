@@ -217,15 +217,16 @@ a:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.days button:hover {
+  border: 1px solid rgb(61, 145, 255);
   border-radius: 15px;
 }
 
-.days span:hover {
-  border: 1px solid rgb(61, 145, 255);
-}
-
 .days .hovered {
-  border: 1px solid rgb(61, 145, 255);
+  border-top: 1px solid rgb(61, 145, 255);
+  border-bottom: 1px solid rgb(61, 145, 255);
 }
 
 .days .selected {
@@ -235,6 +236,18 @@ a:focus {
 
 .days .selected:hover {
   color: rgb(4, 243, 251);
+}
+
+.days .leftEdge {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  left: 2px;
+}
+
+.days .rightEdge {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  right: 2px;
 }
 
 .days .selected.hovered {
@@ -258,6 +271,6 @@ a:focus {
   background: #3d91ff;
 }
 
-.days .today .selected{
+.days .today .selected {
   background: rgb(23, 217, 252);
 }

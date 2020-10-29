@@ -11,7 +11,9 @@ const CalendarContainer = ({
   onHoverDays,
   selectedRange,
   hoveredRange,
-  onRemoveHoveredRange,
+  isMouseDown,
+  stopSelection,
+  onMouseDown,
 }) => {
   const monthAndYearLabel = ({ year, month }) => {
     const date = new Date(year, month);
@@ -19,7 +21,7 @@ const CalendarContainer = ({
     return `${dateString[1]} ${dateString[3]}`;
   };
 
-  const selectedRangeArr = calculatingRange(selectedRange, false);
+  const selectedRangeArr = calculatingRange(selectedRange);
   const hoveredRangeArr = calculatingRange(hoveredRange, true);
   const days = calculateDaysInCalendar(month, selectedRangeArr, hoveredRangeArr);
 
@@ -30,7 +32,9 @@ const CalendarContainer = ({
       onSelectDay={onSelectDay}
       isChoseStartRange={isChoseStartRange}
       onHoverDays={onHoverDays}
-      onRemoveHoveredRange={onRemoveHoveredRange}
+      isMouseDown={isMouseDown}
+      stopSelection={stopSelection}
+      onMouseDown={onMouseDown}
     />
   );
 };

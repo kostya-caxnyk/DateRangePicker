@@ -43,6 +43,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isChoseStartRange: false,
+        isMouseDown: false,
       };
 
     case 'CONTINUE_SELECTION':
@@ -61,6 +62,7 @@ const reducer = (state, action) => {
           from: state.hoveredRange.from,
           to: {},
         },
+        isMouseDown: false,
       };
     case 'HOVERING_ALL_DAYS':
       return {
@@ -71,6 +73,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedRange: action.payload,
+      };
+    case 'START_SELECTING':
+      return {
+        ...state,
+        selectedRange: {
+          from: action.payload,
+          to: {},
+        },
+        isMouseDown: true,
       };
     default:
       return state;
