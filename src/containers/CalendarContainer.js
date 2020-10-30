@@ -1,8 +1,12 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 import Calendar from '../components/Calendar';
 import calculateDaysInCalendar from '../functions/calculateDaysInCalendar';
 import calculatingRange from '../functions/calculatingRange';
+
+import { onSelectDay, onHoverDays, stopSelection, onMouseDown } from '../actions';
 
 const CalendarContainer = ({
   month,
@@ -21,6 +25,38 @@ const CalendarContainer = ({
     return `${dateString[1]} ${dateString[3]}`;
   };
 
+  const handleClick = (date) => () => {
+    onSelectDay(date, isChoseStartRange);
+  };
+
+  const handleMouseEnter = (date) => () => {
+    if (!isChoseStartRange) {
+      return;
+    }
+    onHoverDays(date);
+  };
+
+  const handleMouseDown = (date) => () => {
+    if (isChoseStartRange) {
+      return;
+    }
+    onMouseDown(date, isMouseDown);
+  };
+
+  const handleMouseMove = (date) => () => {
+    if (!isMouseDown) {
+      return;
+    }
+    onSelectDay(date, isMouseDown);
+  };
+
+  const handleMouseUp = () => {
+    if (isChoseStartRange) {
+      return;
+    }
+    stopSelection();
+  };
+
   const selectedRangeArr = calculatingRange(selectedRange);
   const hoveredRangeArr = calculatingRange(hoveredRange, true);
   const days = calculateDaysInCalendar(month, selectedRangeArr, hoveredRangeArr);
@@ -29,14 +65,31 @@ const CalendarContainer = ({
     <Calendar
       monthAndYear={monthAndYearLabel(month)}
       days={days}
-      onSelectDay={onSelectDay}
-      isChoseStartRange={isChoseStartRange}
-      onHoverDays={onHoverDays}
-      isMouseDown={isMouseDown}
-      stopSelection={stopSelection}
-      onMouseDown={onMouseDown}
+      handleClick={handleClick}
+      handleMouseEnter={handleMouseEnter}
+      handleMouseDown={handleMouseDown}
+      handleMouseMove={handleMouseMove}
+      handleMouseUp={handleMouseUp}
     />
   );
 };
 
-export default CalendarContainer;
+const mapStateToProps = ({ selectedRange, hoveredRange, isChoseStartRange, isMouseDown }) => {
+  return {
+    selectedRange,
+    hoveredRange,
+    isChoseStartRange,
+    isMouseDown,
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {
+    onSelectDay,
+    onHoverDays,
+    stopSelection,
+    onMouseDown,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps())(CalendarContainer);

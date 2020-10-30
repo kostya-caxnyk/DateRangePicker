@@ -12,7 +12,7 @@ const SidebarButtons = ({ buttons, handleMouseEnter, handleMouseLeave, setSelect
         return (
           <button
             key={idx}
-            onClick={() => setSelectionRange(range) && changeDate && changeDate()}
+            onClick={() => setSelectionRange(range) && changeDate()}
             className={classNames({ 'btn-active': isActive })}>
             {label}
           </button>

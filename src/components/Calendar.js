@@ -5,12 +5,11 @@ import classNames from 'classnames';
 const Calendar = ({
   days,
   monthAndYear,
-  onSelectDay,
-  isChoseStartRange,
-  onHoverDays,
-  isMouseDown,
-  stopSelection,
-  onMouseDown,
+  handleClick,
+  handleMouseEnter,
+  handleMouseDown,
+  handleMouseMove,
+  handleMouseUp,
 }) => {
   return (
     <div className="calendar">
@@ -25,7 +24,7 @@ const Calendar = ({
         <span>Sat</span>
       </div>
       <div className="days">
-        {days.map((date) => {
+        {days.map((dateData) => {
           const {
             id,
             month,
@@ -36,7 +35,8 @@ const Calendar = ({
             isSelected,
             isLeftEdge,
             isRightEdge,
-          } = date;
+          } = dateData;
+          const data = { day, month, year };
           return (
             <button
               key={id}
@@ -44,15 +44,11 @@ const Calendar = ({
                 passive: !year,
                 today: isToday,
               })}
-              onClick={() => onSelectDay({ day, month, year }, isChoseStartRange)}
-              onMouseEnter={() => {
-                isChoseStartRange && onHoverDays({ day, month, year });
-              }}
-              onMouseDown={() =>
-                !isChoseStartRange && onMouseDown({ day, month, year }, isMouseDown)
-              }
-              onMouseMove={() => isMouseDown && onSelectDay({ day, month, year }, isMouseDown)}
-              onMouseUp={() => !isChoseStartRange && stopSelection()}>
+              onClick={handleClick(data)}
+              onMouseEnter={handleMouseEnter(data)}
+              onMouseDown={handleMouseDown(data)}
+              onMouseMove={handleMouseMove(data)}
+              onMouseUp={handleMouseUp}>
               <span
                 className={classNames({
                   selected: isSelected,

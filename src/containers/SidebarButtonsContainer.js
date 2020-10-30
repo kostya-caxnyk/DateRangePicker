@@ -69,35 +69,36 @@ const SidebarButtonsContainer = ({
   };
 
   let buttons = [
-    { label: 'Today', range: today },
-    { label: 'Yesterday', range: yesterday },
-    { label: 'This week', range: thisWeek },
-    { label: 'Last week', range: lastWeek },
-    { label: 'This month', range: thisMonth },
-    {
-      label: 'Last month',
-      range: lastMonth,
-      changeDate: () => changeDate(year, month - 1),
-    },
+    { label: 'Today', range: today, changeDate: () => changeDate(year, month) },
+    { label: 'Yesterday', range: yesterday, changeDate: () => changeDate(year, month) },
+    { label: 'This week', range: thisWeek, changeDate: () => changeDate(year, month) },
+    { label: 'Last week', range: lastWeek, changeDate: () => changeDate(year, month) },
+    { label: 'This month', range: thisMonth, changeDate: () => changeDate(year, month) },
+    { label: 'Last month', range: lastMonth, changeDate: () => changeDate(year, month - 1) },
   ];
 
   buttons = buttons.map((item) => {
     let from = item.range.from;
     let to = item.range.to;
+
     item.range.from = {
       year: from.getFullYear(),
       month: from.getMonth(),
       day: from.getDate(),
     };
+
     item.range.to = {
       year: to.getFullYear(),
       month: to.getMonth(),
       day: to.getDate(),
     };
+
     from = item.range.from;
     to = item.range.to;
+
     const fromRange = selectedRange.from;
     const toRange = selectedRange.to;
+
     if (
       from.year === fromRange.year &&
       from.month === fromRange.month &&
@@ -108,6 +109,7 @@ const SidebarButtonsContainer = ({
     ) {
       item.isActive = true;
     }
+
     return item;
   });
 
