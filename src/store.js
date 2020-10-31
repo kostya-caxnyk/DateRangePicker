@@ -15,7 +15,7 @@ const from = {
   day: date.getDate(),
 };
 
-date.setMonth(date.getMonth() + 1);
+date = new Date(date.getFullYear(), date.getMonth() + 1)
 
 const dateTwo = {
   year: date.getFullYear(),
