@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/DateRangePicker/static/css/main.609f436c.chunk.css",
+    "main.js": "/DateRangePicker/static/js/main.8a399a97.chunk.js",
+    "main.js.map": "/DateRangePicker/static/js/main.8a399a97.chunk.js.map",
+    "runtime-main.js": "/DateRangePicker/static/js/runtime-main.ae585cab.js",
+    "runtime-main.js.map": "/DateRangePicker/static/js/runtime-main.ae585cab.js.map",
+    "static/js/2.0754626d.chunk.js": "/DateRangePicker/static/js/2.0754626d.chunk.js",
+    "static/js/2.0754626d.chunk.js.map": "/DateRangePicker/static/js/2.0754626d.chunk.js.map",
+    "index.html": "/DateRangePicker/index.html",
+    "static/css/main.609f436c.chunk.css.map": "/DateRangePicker/static/css/main.609f436c.chunk.css.map",
+    "static/js/2.0754626d.chunk.js.LICENSE.txt": "/DateRangePicker/static/js/2.0754626d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ae585cab.js",
+    "static/js/2.0754626d.chunk.js",
+    "static/css/main.609f436c.chunk.css",
+    "static/js/main.8a399a97.chunk.js"
+  ]
+}
